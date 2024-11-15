@@ -1,0 +1,39 @@
+version: "1"  
+  
+package:  
+  id: com.xmly.deepin  
+  name: com.xmly.deepin  
+  version: 1.0.0.0  
+  kind: app  
+  description: |  
+      signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb  
+  
+base: org.deepin.base.wine/23.2.0
+runtime: org.deepin.runtime.wine/23.2.1
+  
+command:  
+  - /opt/apps/com.xmly.deepin/files/run.sh  
+  
+
+sources:
+  - kind: file
+    url: https://winedata-dev.deepin.com/apps/com.xmly.deepin/b7c6f4f/signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb
+    digest: 61f26c07fd8c383b709c837b01694b90e852dc5980bf9c3e57f8be7eee3c3e86
+
+build: |  
+  set -x  
+  SOURCES="linglong/sources"  
+  dpkg-deb -x $SOURCES/signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb $SOURCES/com.xmly.deepin  
+  # run.sh替换
+  FILE_PATH="$SOURCES/com.xmly.deepin/opt/apps/com.xmly.deepin/files/run.sh" 
+  sed -i -e 's|/opt/deepin-wine8-stable|/runtime/deepin-wine8-stable|g' \
+         -e 's|/opt/deepin-wine6-stable|/runtime/deepin-wine6-stable|g' \
+         -e 's|/opt/deepinwine|/runtime/deepinwine|g' \
+         -e 's|/opt/deepin-box86|/runtime/deepin-box86|g' \
+         -e 's|BOTTLEPATH="$HOME/.deepinwine/$BOTTLENAME"|BOTTLEPATH="$HOME/.linglong/$BOTTLENAME"|g' "$FILE_PATH"
+   
+  install -d $PREFIX/share
+  install -d $PREFIX/bin
+  # move files
+  cp -r $SOURCES/com.xmly.deepin/opt/apps/com.xmly.deepin/entries/* $PREFIX/share
+  cp -r $SOURCES/com.xmly.deepin/opt/apps/com.xmly.deepin/files/* $PREFIX
