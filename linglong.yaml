@@ -3,10 +3,10 @@ version: "1"
 package:  
   id: com.xmly.deepin  
   name: com.xmly.deepin  
-  version: 1.0.0.0  
+  version: 1.0.0.1  
   kind: app  
   description: |  
-      signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb  
+      signed_com.xmly.deepin_4.0.3.418deepin7_amd64.deb 
   
 base: org.deepin.base.wine/23.2.0
 runtime: org.deepin.runtime.wine/23.2.1
@@ -17,13 +17,13 @@ command:
 
 sources:
   - kind: file
-    url: https://winedata-dev.deepin.com/apps/com.xmly.deepin/b7c6f4f/signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb
-    digest: 61f26c07fd8c383b709c837b01694b90e852dc5980bf9c3e57f8be7eee3c3e86
+    url: https://winedata-dev.deepin.com/apps/com.xmly.deepin/11d2fcb/signed_com.xmly.deepin_4.0.3.418deepin7_amd64.deb
+    digest: 907cafa7bc5130fee85babadaba42f34c5c4eedce34724b63c049ea25cac87e8
 
 build: |  
   set -x  
   SOURCES="linglong/sources"  
-  dpkg-deb -x $SOURCES/signed_com.xmly.deepin_4.0.3.418deepin5_amd64.deb $SOURCES/com.xmly.deepin  
+  dpkg-deb -x $SOURCES/signed_com.xmly.deepin_4.0.3.418deepin7_amd64.deb $SOURCES/com.xmly.deepin  
   # run.sh替换
   FILE_PATH="$SOURCES/com.xmly.deepin/opt/apps/com.xmly.deepin/files/run.sh" 
   sed -i -e 's|/opt/deepin-wine8-stable|/runtime/deepin-wine8-stable|g' \
